@@ -1,0 +1,39 @@
+name: ${project.artifactId}
+version: ${project.version}
+author: RA1gA
+website: https://twitter.com/raiga2525
+main: jp.mc.ra1ga.enderscroll.main.EnderScroll
+
+commands:
+  enderscroll:
+    aliases: es
+    permission: enderscroll.command
+
+permissions:
+  enderscroll.command:
+    description: Allows to use command.
+    default: true
+  enderscroll.command.set:
+    description: Allows to use set command.
+    default: op
+  enderscroll.command.remove:
+    description: Allows to use remove command.
+    default: op
+  enderscroll.command.give:
+    description: Allows to use give command.
+    default: op
+  enderscroll.command.list:
+    description: Allows to use list command.
+    default: op
+  enderscroll.command.help:
+    description: Allows to use help command.
+    default: op
+  'enderscroll.command.*':
+    description: All of enderscroll permissions.
+    children:
+      enderscroll.command: true
+      enderscroll.command.set: true
+      enderscroll.command.remove: true
+      enderscroll.command.give: true
+      enderscroll.command.list: true
+      enderscroll.command.help: true
