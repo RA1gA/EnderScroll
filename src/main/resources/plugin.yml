@@ -10,6 +10,9 @@ commands:
     permission: enderscroll.command
 
 permissions:
+  enderscroll.use
+    description: Allows to use scroll.
+    default: true
   enderscroll.command:
     description: Allows to use command.
     default: true
