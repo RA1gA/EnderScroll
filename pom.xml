@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>jp.mc.ra1ga</groupId>
   <artifactId>EnderScroll</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 
   <build>
     <finalName>${project.artifactId}-${project.version}</finalName>
@@ -33,6 +33,22 @@
   </repositories>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot112</artifactId>
+      <version>1.12</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/spigot-1.12.jar</systemPath>
+    </dependency>
+
+    <dependency>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot1112</artifactId>
+      <version>1.11.2</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/spigot-1.11.2.jar</systemPath>
+    </dependency>
 
     <dependency>
       <groupId>org.spigotmc</groupId>

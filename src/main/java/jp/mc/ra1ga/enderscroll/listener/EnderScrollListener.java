@@ -15,16 +15,19 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import jp.mc.ra1ga.enderscroll.json.ScrollLocation;
+import jp.mc.ra1ga.enderscroll.json.ScrollLocationManager;
 import jp.mc.ra1ga.enderscroll.main.EnderScroll;
 
 public class EnderScrollListener implements Listener {
+
+	private EnderScroll plugin;
+	private HashMap<Player, Boolean> casting;
+
 	public EnderScrollListener(EnderScroll plugin) {
 		this.plugin = plugin;
 		this.casting = new HashMap<>();
 	}
-
-	private EnderScroll plugin;
-	private HashMap<Player, Boolean> casting;
 
 	@EventHandler
 	public void onClickScroll(PlayerInteractEvent e){ //enderscroll.use
@@ -35,20 +38,10 @@ public class EnderScrollListener implements Listener {
 				if(i != null && i.getType().equals(Material.PAPER)){
 					String scrollName = plugin.getPacketUtil().getScrollName(i);
 					if(scrollName != null){
-						if(plugin.getConfig().contains(scrollName + ".World") &&
-								plugin.getConfig().contains(scrollName + ".X") &&
-								plugin.getConfig().contains(scrollName + ".Y") &&
-								plugin.getConfig().contains(scrollName + ".Z") &&
-								plugin.getConfig().contains(scrollName + ".Yaw") &&
-								plugin.getConfig().contains(scrollName + ".Pitch")){
+						final ScrollLocation loc;
+						if((loc = ScrollLocationManager.getInstance().getScrollLocationFrom(scrollName)) != null){
 							if(!casting.containsKey(p)) casting.put(p, false);
 							if(!casting.get(p)){
-								final String w = plugin.getConfig().getString(scrollName + ".World");
-								final double x = plugin.getConfig().getDouble(scrollName + ".X");
-								final double y = plugin.getConfig().getDouble(scrollName + ".Y");
-								final double z = plugin.getConfig().getDouble(scrollName + ".Z");
-								final float yaw = (float)plugin.getConfig().getDouble(scrollName + ".Yaw");
-								final float pitch = (float)plugin.getConfig().getDouble(scrollName + ".Pitch");
 
 								casting.put(p, true);
 
@@ -58,10 +51,10 @@ public class EnderScrollListener implements Listener {
 									public void run() {
 										count--;
 										plugin.getPacketUtil().playScrollParticle(p.getLocation());
-										plugin.getPacketUtil().playScrollParticle(new Location(Bukkit.getWorld(w), x, y, z));
+										plugin.getPacketUtil().playScrollParticle(new Location(Bukkit.getWorld(loc.getWorld()), loc.getX(), loc.getY(), loc.getZ()));
 										if(count <= 0){
-											p.teleport(new Location(Bukkit.getWorld(w), x, y, z, yaw, pitch));
-											Bukkit.getWorld(w).playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+											p.teleport(new Location(Bukkit.getWorld(loc.getWorld()), loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch()));
+											Bukkit.getWorld(loc.getWorld()).playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
 											casting.put(p, false);
 											cancel();
 										}
