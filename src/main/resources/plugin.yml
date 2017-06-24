@@ -10,7 +10,7 @@ commands:
     permission: enderscroll.command
 
 permissions:
-  enderscroll.use
+  enderscroll.use:
     description: Allows to use scroll.
     default: true
   enderscroll.command:
@@ -28,6 +28,12 @@ permissions:
   enderscroll.command.list:
     description: Allows to use list command.
     default: op
+  enderscroll.command.reload:
+    description: Allows to use reload command.
+    default: op
+  enderscroll.command.save:
+    description: Allows to use save command.
+    default: op
   enderscroll.command.help:
     description: Allows to use help command.
     default: op
@@ -38,5 +44,7 @@ permissions:
       enderscroll.command.set: true
       enderscroll.command.remove: true
       enderscroll.command.give: true
+      enderscroll.command.save: true
+      enderscroll.command.reload: true
       enderscroll.command.list: true
       enderscroll.command.help: true
